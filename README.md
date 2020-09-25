@@ -1,2 +1,2 @@
 # esx_chasse
- Script de chasse pour FiveM
+[beta] Script de chasse pour FiveM

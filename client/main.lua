@@ -168,5 +168,3 @@ Citizen.CreateThread(function()
     end
 
 end)
-
-EndTextCommandDisplayHelp(p0, loop, beep, duration)

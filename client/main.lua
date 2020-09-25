@@ -100,23 +100,23 @@ Citizen.CreateThread(function()
   RequestAnimDict('anim@gangops@facility@servers@bodysearch@')
     while true do
       for ped in EnumeratePeds() do
+        Citizen.Wait(1)
             local playerPos = GetEntityCoords(GetPlayerPed(-1))
             local animalPos = GetEntityCoords(ped)
             if GetDistanceBetweenCoords(playerPos.x, playerPos.y, playerPos.z, animalPos.x, animalPos.y, animalPos.z, true) < 1.5 and ped ~= GetPlayerPed(-1) then --Proche d'un ped
               if GetPedType(ped) == 28 then --Proche d'un animal
                     if IsPedDeadOrDying(ped)then --Proche d'un animal mort
-                      while true do
-                        local playerPos = GetEntityCoords(GetPlayerPed(-1))
+                      while GetDistanceBetweenCoords(playerPos.x, playerPos.y, playerPos.z, animalPos.x, animalPos.y, animalPos.z, true) < 1.8 do
                         BeginTextCommandDisplayHelp("STRING")
                         AddTextComponentSubstringPlayerName("Appuyez sur ~INPUT_TALK~ pour dépecer")
-                        EndTextCommandDisplayHelp(0, false, false, 50)
+                        EndTextCommandDisplayHelp(0, false, false, 500)
                         if IsControlJustPressed(0, 38) then
                           if GetSelectedPedWeapon(GetPlayerPed(-1)) == GetHashKey("WEAPON_KNIFE") then
                             RequestAnimDict('amb@medic@standing@kneel@base')
                             RequestAnimDict('anim@gangops@facility@servers@bodysearch@')
                             TaskPlayAnim(GetPlayerPed(-1), "amb@medic@standing@kneel@base" ,"base" ,8.0, -8.0, -1, 1, 0, false, false, false )
                             TaskPlayAnim(GetPlayerPed(-1), "anim@gangops@facility@servers@bodysearch@" ,"player_search" ,8.0, -8.0, -1, 48, 0, false, false, false )
-                            Wait(5000)
+                            Citizen.Wait(5000)
                             if GetEntityModel(ped) == GetHashKey("a_c_boar") then
                               TriggerServerEvent('chasse:additem', "chasse_sanglier", 1)
                               DeletePed(ped)
@@ -146,25 +146,27 @@ Citizen.CreateThread(function()
                               DeletePed(ped)
                             end
                             ClearPedTasks(GetPlayerPed(-1))
+                            break
                           else
                             BeginTextCommandDisplayHelp("STRING")
                             AddTextComponentSubstringPlayerName("Equipez vous d'un couteau de chasse")
                             EndTextCommandDisplayHelp(0, false, false, 3000)
-                            Wait(3000)
+                            Citizen.Wait(3000)
                           end
-                          break
                         end
+                        local playerPos = GetEntityCoords(GetPlayerPed(-1))
                         if GetDistanceBetweenCoords(playerPos.x, playerPos.y, playerPos.z, animalPos.x, animalPos.y, animalPos.z, true) > 1.8 then
                           break
                         end
-                        Wait(5)
+                        Citizen.Wait(5)
                       end
                     end
               end
             end
       end
-
-    Wait(500)
+      Citizen.Wait(3000)
     end
 
 end)
+
+EndTextCommandDisplayHelp(p0, loop, beep, duration)

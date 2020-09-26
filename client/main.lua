@@ -116,7 +116,7 @@ Citizen.CreateThread(function()
                             RequestAnimDict('anim@gangops@facility@servers@bodysearch@')
                             TaskPlayAnim(GetPlayerPed(-1), "amb@medic@standing@kneel@base" ,"base" ,8.0, -8.0, -1, 1, 0, false, false, false )
                             TaskPlayAnim(GetPlayerPed(-1), "anim@gangops@facility@servers@bodysearch@" ,"player_search" ,8.0, -8.0, -1, 48, 0, false, false, false )
-                            Citizen.Wait(5000)
+                            Citizen.Wait(10000)
                             if GetEntityModel(ped) == GetHashKey("a_c_boar") then
                               TriggerServerEvent('chasse:additem', "chasse_sanglier", 1)
                               DeletePed(ped)
